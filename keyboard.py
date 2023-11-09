@@ -22,3 +22,13 @@ anket_keyboard.row(cook_btn, parcel_from_Moscow_btn, replica_of_dishes_btn)
 anket_keyboard.row(posting_on_a_channel_btn, household_devices_btn)
 anket_keyboard.add(other_services_btn)
 anket_keyboard.add(technical_support_btn)
+
+admin_keyboard = types.InlineKeyboardMarkup()
+y_btn = types.InlineKeyboardButton(text='✅ Принять', callback_data='Принять')
+n_btn = types.InlineKeyboardButton(text='❌ Отменить', callback_data='Отменить')
+admin_keyboard.row(y_btn, n_btn)
+
+ladle_keyboard = types.InlineKeyboardMarkup()
+m_button = types.InlineKeyboardButton(text='⛓ Металическая ручка', callback_data='Металическая ручка')
+t_button = types.InlineKeyboardButton(text='🌳 Деревянная ручка', callback_data='Деревяная ручка')
+ladle_keyboard.row(m_button, t_button)
