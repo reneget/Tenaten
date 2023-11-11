@@ -1,7 +1,7 @@
 import telebot
-from texts import *
+from bot.handler.texts import *
 from bestconfig import Config
-from keyboard import *
+from bot.keyboard.keyboard import *
 
 config = Config("config.yml")
 bot = telebot.TeleBot(config.get('bot_token'), parse_mode='')
@@ -76,23 +76,23 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         bot.send_message(config.get('admin_group_chat_id'), tech_support_report(message.from_user.first_name, message.from_user.id, message.text), parse_mode="HTML")
 
 
-def anket(objec, username, user_id, ladle_material=None, spoons_data=None, city=None, forks=None, knives_set=None, dishes_type=None):
+def anket(object, username, user_id, ladle_material=None, spoons_data=None, city=None, forks=None, knives_set=None, dishes_type=None):
     anketa = f'''
-        Объект: {objec}
+        Объект: {object}
         Город: {city}
         Юзернейм: {username}
         Юзер ID: {user_id}
         '''
 
     if ladle_material:
-        anketa = f'''Объект: {objec}
+        anketa = f'''Объект: {object}
             Материал {ladle_material}
             Город: {city}
             Юзернейм: {username}
             Юзер ID: {user_id}
             '''
     if spoons_data:
-        anketa = f'''Объект: {objec}
+        anketa = f'''Объект: {object}
             Город: {city}
             Что должны сделать {spoons_data[0]}
             Сумма за доставку {spoons_data[1]}
@@ -101,14 +101,14 @@ def anket(objec, username, user_id, ladle_material=None, spoons_data=None, city=
             '''
     if forks:
         anketa = f'''
-            Объект: {objec}
+            Объект: {object}
             От вилок нужно: {forks}
             Юзернейм: {username}
             Юзер ID: {user_id}
             '''
     if knives_set:
         anketa = f'''
-            Объект: {objec}
+            Объект: {object}
             Город: {city}
             Интересующие ножи: {knives_set}
             Юзернейм: {username}
@@ -116,7 +116,7 @@ def anket(objec, username, user_id, ladle_material=None, spoons_data=None, city=
             '''
     if dishes_type:
         anketa = f'''
-            Объект: {objec}
+            Объект: {object}
             Тип тарелок: {dishes_type}
             Юзернейм: {username}
             Юзер ID: {user_id}
