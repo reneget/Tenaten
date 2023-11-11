@@ -35,7 +35,9 @@ def callback_inline(call):
     if call.data == 'Ножи':
         mes = bot.send_message(call.message.chat.id, knives_ms[1])
         bot.register_next_step_handler(mes, ankets_creator, knives=True)
-
+    if call.data == 'Тарелки':
+        mes = bot.send_message(call.message.chat.id, dishes_ms)
+        bot.register_next_step_handler(mes, ankets_creator, dishes=True)
 
 def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, forks=None, dishes=None, cups=None, other_services=None, household_devices=None, parcel_from_Moscow=None, posting_on_a_channel=None, replica_of_dishes=None, technical_support=None, ladle_material=None, spoons_city=None, spoons_work=None, knives_city=None):
     if cook:
@@ -62,9 +64,12 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
     if knives_city:
         bot.send_message(message.chat.id, wait_ms)
         bot.send_message(config.get('admin_group_chat_id'), anket('Ножи', message.from_user.first_name, message.from_user.id, city=knives_city, knives_set=message.text), reply_markup=admin_keyboard)
+    if dishes:
+        bot.send_message(message.chat.id, wait_ms)
+        bot.send_message(config.get('admin_group_chat_id'), anket('Тарелки', message.from_user.first_name, message.from_user.id, dishes_type=message.text), reply_markup=admin_keyboard)
 
 
-def anket(objec, username, user_id, ladle_material=None, spoons_data=None, city=None, forks=None, knives_set=None):
+def anket(objec, username, user_id, ladle_material=None, spoons_data=None, city=None, forks=None, knives_set=None, dishes_type=None):
     anketa = f'''
         Объект: {objec}
         Город: {city}
@@ -102,7 +107,13 @@ def anket(objec, username, user_id, ladle_material=None, spoons_data=None, city=
             Юзернейм: {username}
             Юзер ID: {user_id}
             '''
-
+    if dishes_type:
+        anketa = f'''
+            Объект: {objec}
+            Тип тарелок: {dishes_type}
+            Юзернейм: {username}
+            Юзер ID: {user_id}
+            '''
     return anketa
 
 
