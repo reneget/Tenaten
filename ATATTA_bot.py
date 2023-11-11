@@ -38,7 +38,9 @@ def callback_inline(call):
     if call.data == 'Тарелки':
         mes = bot.send_message(call.message.chat.id, dishes_ms)
         bot.register_next_step_handler(mes, ankets_creator, dishes=True)
-
+    if call.data == 'Тех. поддержка':
+        mes = bot.send_message(call.message.chat.id, technical_support_ms)
+        bot.register_next_step_handler(mes, ankets_creator, technical_support=True)
 def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, forks=None, dishes=None, cups=None, other_services=None, household_devices=None, parcel_from_Moscow=None, posting_on_a_channel=None, replica_of_dishes=None, technical_support=None, ladle_material=None, spoons_city=None, spoons_work=None, knives_city=None):
     if cook:
         bot.send_message(message.chat.id, wait_ms)
@@ -67,6 +69,9 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
     if dishes:
         bot.send_message(message.chat.id, wait_ms)
         bot.send_message(config.get('admin_group_chat_id'), anket('Тарелки', message.from_user.first_name, message.from_user.id, dishes_type=message.text), reply_markup=admin_keyboard)
+    if technical_support:
+        bot.send_message(message.chat.id, technical_support_wait_ms)
+        bot.send_message(config.get('admin_group_chat_id'), tech_support_report(message.from_user.first_name, message.from_user.id, message.text))
 
 
 def anket(objec, username, user_id, ladle_material=None, spoons_data=None, city=None, forks=None, knives_set=None, dishes_type=None):
@@ -116,5 +121,12 @@ def anket(objec, username, user_id, ladle_material=None, spoons_data=None, city=
             '''
     return anketa
 
+def tech_support_report(username, user_id, message):
+    text = f'''
+    ❗ПОСТУПИЛА ЗАЯВКА В ТЕХ. ПОДДЕРЖКУ❗
+    От {username} (id {user_id})
+    "{message}" 
+    '''
+    return text
 
 bot.infinity_polling()
