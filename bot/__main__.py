@@ -18,14 +18,12 @@ def start_command(message):
 
 
 @bot.message_handler(func=lambda message: message.text == "Главное меню" or message.text == "главное меню")
-def main_menu(message):
+def general_menu(message):
     start_command(message)
 
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
-    if call.data == 'Главное меню':
-        bot.send_message(call.message.chat.id, start_message, reply_markup=user_keyboard)
     if call.data == 'Повар':
         mes = bot.send_message(call.message.chat.id, cook_ms)
         bot.register_next_step_handler(mes, ankets_creator, cook=True)
