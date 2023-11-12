@@ -30,9 +30,11 @@ def callback_inline(call):
     if call.data == 'Принять':
         bot.edit_message_reply_markup(message_id=call.message.message_id, chat_id=call.message.chat.id,
                                       reply_markup=y_keyboard)
+        bot.send_message(chat_id=call.from_user.id, text="Ваша заявка принята ✅")
     if call.data == 'Отменить':
         bot.edit_message_reply_markup(message_id=call.message.message_id, chat_id=call.message.chat.id,
                                       reply_markup=n_keyboard)
+        bot.send_message(chat_id=call.from_user.id, text="Ваша заявка отклонена ❌")
     if call.data == 'Половник':
         bot.send_message(call.message.chat.id, ladle_ms[0], reply_markup=ladle_keyboard)
     if call.data == 'Металическая ручка' or call.data == 'Деревяная ручка':
@@ -201,7 +203,8 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
                          anket('Размещение поста на канале', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                message.from_user.id,
                                city=posting_on_a_channel_city,
-                               posting_on_a_channel_set=message.text), reply_markup=admin_keyboard,
+                               posting_on_a_channel_set=message.text)
+                         , reply_markup=admin_keyboard,
                          parse_mode="Markdown")
 
     if technical_support:
@@ -216,92 +219,94 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
 def anket(object, username, user_id, ladle_material=None, spoons_data=None, city=None, knives_set=None,
           dishes_type=None, cups_set=None, posting_on_a_channel_set=None, parcel_from_Moscow_set=None,
           household_devices_set=None, other_services_set=None, forks_znach=None, cook_city=None):
-    anketa = f'''
+    questionnaire = f'''
         '''
     if cook_city:
-        anketa = f'''Объект: Повар
-            Город: {cook_city}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''
+Объект: Повар
+Город: {cook_city}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
     if ladle_material:
-        anketa = f'''Объект: {object}
-            Материал: {ladle_material}
-            Город: {city}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''
+Объект: {object}
+Материал: {ladle_material}
+Город: {city}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
     if spoons_data:
-        anketa = f'''Объект: {object}
-            Город: {city}
-            Что должны сделать: {spoons_data[0]}
-            Сумма за доставку: {spoons_data[1]}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''Объект: {object}
+Город: {city}
+Что должны сделать: {spoons_data[0]}
+Сумма за доставку: {spoons_data[1]}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
     if forks_znach:
-        anketa = f'''
-            Объект: {object}
-            От вилок нужно: {forks_znach}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''
+Объект: {object}
+От вилок нужно: {forks_znach}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
     if knives_set:
-        anketa = f'''
-            Объект: {object}
-            Город: {city}
-            Интересующие ножи: {knives_set}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''
+Объект: {object}
+Город: {city}
+Интересующие ножи: {knives_set}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
     if cups_set:
-        anketa = f'''
-            Объект: {object}
-            Город: {city}
-            Ручка: {cups_set}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''
+Объект: {object}
+Город: {city}
+Ручка: {cups_set}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
     if other_services_set:
-        anketa = f'''
-            Объект: {object}
-            Город: {city}
-            Услуга: {other_services_set}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''
+Объект: {object}
+Город: {city}
+Услуга: {other_services_set}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
     if household_devices_set:
-        anketa = f'''
-            Объект: {object}
-            Город: {city}
-            Устройство: {household_devices_set}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''
+Объект: {object}
+Город: {city}
+Устройство: {household_devices_set}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
     if parcel_from_Moscow_set:
-        anketa = f'''
-            Объект: {object}
-            Город: {city}
-            Посылка: {parcel_from_Moscow_set}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''
+Объект: {object}
+Город: {city}
+Посылка: {parcel_from_Moscow_set}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
     if posting_on_a_channel_set:
-        anketa = f'''
-            Объект: {object}
-            Город: {city}
-            Оказание услуги: {posting_on_a_channel_set}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''
+Объект: {object}
+Город: {city}
+Оказание услуги: {posting_on_a_channel_set}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
     if dishes_type:
-        anketa = f'''
-            Объект: {object}
-            Тип тарелок: {dishes_type}
-            Юзернейм: {username}
-            Юзер ID: {user_id}
+        questionnaire = f'''
+Объект: {object}
+Тип тарелок: {dishes_type}
+Пользователь: {username}
+ID пользователя: {user_id}
             '''
-    return anketa
+    return questionnaire
 
 
 @bot.message_handler(
