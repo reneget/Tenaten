@@ -46,7 +46,7 @@ def callback_inline(call):
         mes = bot.send_message(call.message.chat.id, dishes_ms)
         bot.register_next_step_handler(mes, ankets_creator, dishes=True)
     if call.data == 'Чашки':
-        mes = bot.send_message(call.message.chat.id, cups_ms[1])
+        mes = bot.send_message(call.message.chat.id, cups_ms[0])
         bot.register_next_step_handler(mes, ankets_creator, cups=True)
     if call.data == 'Другие услуги':
         mes = bot.send_message(call.message.chat.id, other_services_ms[1])
@@ -68,69 +68,159 @@ def callback_inline(call):
 def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, forks=None, dishes=None, cups=None,
                    other_services=None, household_devices=None, parcel_from_Moscow=None, posting_on_a_channel=None,
                    replica_of_dishes=None, technical_support=None, ladle_material=None, spoons_city=None,
-                   spoons_work=None, knives_city=None):
+                   spoons_work=None, knives_city=None, cups_city=None, other_services_city=None,
+                   household_devices_city=None, parcel_from_Moscow_city=None, posting_on_a_channel_city=None):
     if cook:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
         bot.send_message(message.chat.id, wait_ms)
         bot.send_message(admin_chat_id,
-                         anket('Повар', message.from_user.first_name, message.from_user.id, city=message.text),
-                         reply_markup=admin_keyboard)
+                         anket('Повар', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")", message.from_user.id,
+                               cook_city=message.text),
+                         reply_markup=admin_keyboard, parse_mode="Markdown")
+
     if ladle:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
         bot.send_message(message.chat.id, wait_ms)
         bot.send_message(admin_chat_id,
-                         anket('Половник', message.from_user.first_name, message.from_user.id,
-                               ladle_material=ladle_material, city=message.text), reply_markup=admin_keyboard)
+                         anket('Половник', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
+                               message.from_user.id,
+                               ladle_material=ladle_material, city=message.text), reply_markup=admin_keyboard,
+                         parse_mode="Markdown")
+
     if spoons:
         mes2 = bot.send_message(message.chat.id, spoons_ms[1])
         bot.register_next_step_handler(mes2, ankets_creator, spoons_city=message.text)
     if spoons_city and not spoons_work:
         mes3 = bot.send_message(message.chat.id, spoons_ms[2])
-        bot.register_next_step_handler(mes3, ankets_creator, spoons_work=message.text, spoons_cit=spoons_city)
+        bot.register_next_step_handler(mes3, ankets_creator, spoons_work=message.text, spoons_city=spoons_city)
     if spoons_work and spoons_city:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
         bot.send_message(message.chat.id, wait_ms)
         bot.send_message(admin_chat_id,
-                         anket('Ложки', message.from_user.first_name, message.from_user.id,
-                               spoons_data=[spoons_work, message.text], city=spoons_city), reply_markup=admin_keyboard)
+                         anket('Ложки', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")", message.from_user.id,
+                               spoons_data=[spoons_work, message.text], city=spoons_city), reply_markup=admin_keyboard,
+                         parse_mode="Markdown")
+
     if forks:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
         bot.send_message(message.chat.id, wait_ms)
         bot.send_message(admin_chat_id,
-                         anket('Вилки', message.from_user.first_name, message.from_user.id),
-                         reply_markup=admin_keyboard)
+                         anket('Вилки', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")", message.from_user.id,
+                               forks_znach=message.text),
+                         reply_markup=admin_keyboard, parse_mode="Markdown")
+
     if knives:
         mes2 = bot.send_message(message.chat.id, knives_ms[0])
         bot.register_next_step_handler(mes2, ankets_creator, knives_city=message.text)
     if knives_city:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
         bot.send_message(message.chat.id, wait_ms)
         bot.send_message(admin_chat_id,
-                         anket('Ножи', message.from_user.first_name, message.from_user.id, city=knives_city,
-                               knives_set=message.text), reply_markup=admin_keyboard)
+                         anket('Ножи', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")", message.from_user.id,
+                               city=knives_city,
+                               knives_set=message.text), reply_markup=admin_keyboard, parse_mode="Markdown")
+
     if dishes:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
         bot.send_message(message.chat.id, wait_ms)
         bot.send_message(admin_chat_id,
-                         anket('Тарелки', message.from_user.first_name, message.from_user.id, dishes_type=message.text),
-                         reply_markup=admin_keyboard)
+                         anket('Тарелки', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
+                               message.from_user.id, dishes_type=message.text),
+                         reply_markup=admin_keyboard, parse_mode="Markdown")
+
     if cups:
-        bot.send_message(message.chat.id, cups_ms)
+        mes2 = bot.send_message(message.chat.id, cups_ms[1])
+        bot.register_next_step_handler(mes2, ankets_creator, cups_city=message.text)
+    if cups_city:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
+        bot.send_message(message.chat.id, wait_ms)
+        bot.send_message(admin_chat_id,
+                         anket('Чашки', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")", message.from_user.id,
+                               city=cups_city,
+                               cups_set=message.text), reply_markup=admin_keyboard, parse_mode="Markdown")
+
+    if other_services:
+        mes2 = bot.send_message(message.chat.id, other_services_ms[0])
+        bot.register_next_step_handler(mes2, ankets_creator, other_services_city=message.text)
+    if other_services_city:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
+        bot.send_message(message.chat.id, wait_ms)
+        bot.send_message(admin_chat_id,
+                         anket('Другие услуги', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
+                               message.from_user.id,
+                               city=other_services_city,
+                               other_services_set=message.text), reply_markup=admin_keyboard, parse_mode="Markdown")
+
+    if household_devices:
+        mes2 = bot.send_message(message.chat.id, household_devices_ms[0])
+        bot.register_next_step_handler(mes2, ankets_creator, household_devices_city=message.text)
+    if household_devices_city:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
+        bot.send_message(message.chat.id, wait_ms)
+        bot.send_message(admin_chat_id,
+                         anket('Бытовые устройства', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
+                               message.from_user.id,
+                               city=household_devices_city,
+                               household_devices_set=message.text), reply_markup=admin_keyboard, parse_mode="Markdown")
+
+    if parcel_from_Moscow:
+        mes2 = bot.send_message(message.chat.id, parcel_from_Moscow_ms[0])
+        bot.register_next_step_handler(mes2, ankets_creator, parcel_from_Moscow_city=message.text)
+    if parcel_from_Moscow_city:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
+        bot.send_message(message.chat.id, wait_ms)
+        bot.send_message(admin_chat_id,
+                         anket('Посылка с Москвы', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
+                               message.from_user.id,
+                               city=parcel_from_Moscow_city,
+                               parcel_from_Moscow_set=message.text), reply_markup=admin_keyboard, parse_mode="Markdown")
+
+    if posting_on_a_channel:
+        mes2 = bot.send_message(message.chat.id, parcel_from_Moscow_ms[0])
+        bot.register_next_step_handler(mes2, ankets_creator, posting_on_a_channel_city=message.text)
+    if posting_on_a_channel_city:
+        user_id = message.from_user.id
+        user_name = message.from_user.username
+        bot.send_message(message.chat.id, wait_ms)
+        bot.send_message(admin_chat_id,
+                         anket('Размещение поста на канале', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
+                               message.from_user.id,
+                               city=posting_on_a_channel_city,
+                               posting_on_a_channel_set=message.text), reply_markup=admin_keyboard,
+                         parse_mode="Markdown")
+
     if technical_support:
         user_id = message.from_user.id
         if user_id in requests:
             bot.send_message(user_id, "Вы уже подали заявку. Пожалуйста, подождите ответа администраторов.")
             return
-        bot.send_message(user_id, technical_support_ms)
         bot.register_next_step_handler(message, process_request, user_id)
 
 
-def anket(object, username, user_id, ladle_material=None, spoons_data=None, city=None, forks=None, knives_set=None,
-          dishes_type=None):
+def anket(object, username, user_id, ladle_material=None, spoons_data=None, city=None, knives_set=None,
+          dishes_type=None, cups_set=None, posting_on_a_channel_set=None, parcel_from_Moscow_set=None,
+          household_devices_set=None, other_services_set=None, forks_znach=None, cook_city=None):
     anketa = f'''
-        Объект: {object}
-        Город: {city}
-        Юзернейм: {username}
-        Юзер ID: {user_id}
         '''
-
+    if cook_city:
+        anketa = f'''Объект: Повар
+            Город: {cook_city}
+            Юзернейм: {username}
+            Юзер ID: {user_id}
+            '''
     if ladle_material:
         anketa = f'''Объект: {object}
-            Материал {ladle_material}
+            Материал: {ladle_material}
             Город: {city}
             Юзернейм: {username}
             Юзер ID: {user_id}
@@ -138,15 +228,15 @@ def anket(object, username, user_id, ladle_material=None, spoons_data=None, city
     if spoons_data:
         anketa = f'''Объект: {object}
             Город: {city}
-            Что должны сделать {spoons_data[0]}
-            Сумма за доставку {spoons_data[1]}
+            Что должны сделать: {spoons_data[0]}
+            Сумма за доставку: {spoons_data[1]}
             Юзернейм: {username}
             Юзер ID: {user_id}
             '''
-    if forks:
+    if forks_znach:
         anketa = f'''
             Объект: {object}
-            От вилок нужно: {forks}
+            От вилок нужно: {forks_znach}
             Юзернейм: {username}
             Юзер ID: {user_id}
             '''
@@ -155,6 +245,46 @@ def anket(object, username, user_id, ladle_material=None, spoons_data=None, city
             Объект: {object}
             Город: {city}
             Интересующие ножи: {knives_set}
+            Юзернейм: {username}
+            Юзер ID: {user_id}
+            '''
+    if cups_set:
+        anketa = f'''
+            Объект: {object}
+            Город: {city}
+            Ручка: {cups_set}
+            Юзернейм: {username}
+            Юзер ID: {user_id}
+            '''
+    if other_services_set:
+        anketa = f'''
+            Объект: {object}
+            Город: {city}
+            Услуга: {other_services_set}
+            Юзернейм: {username}
+            Юзер ID: {user_id}
+            '''
+    if household_devices_set:
+        anketa = f'''
+            Объект: {object}
+            Город: {city}
+            Устройство: {household_devices_set}
+            Юзернейм: {username}
+            Юзер ID: {user_id}
+            '''
+    if parcel_from_Moscow_set:
+        anketa = f'''
+            Объект: {object}
+            Город: {city}
+            Посылка: {parcel_from_Moscow_set}
+            Юзернейм: {username}
+            Юзер ID: {user_id}
+            '''
+    if posting_on_a_channel_set:
+        anketa = f'''
+            Объект: {object}
+            Город: {city}
+            Оказание услуги: {posting_on_a_channel_set}
             Юзернейм: {username}
             Юзер ID: {user_id}
             '''
