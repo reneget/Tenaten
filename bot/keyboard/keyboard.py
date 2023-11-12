@@ -16,6 +16,10 @@ posting_on_a_channel_btn = types.InlineKeyboardButton(text='Размещение
 replica_of_dishes_btn = types.InlineKeyboardButton(text='Копия посуды', callback_data='Копия посуды')
 technical_support_btn = types.InlineKeyboardButton(text='Тех. поддержка', callback_data='Тех. поддержка')
 
+general_menu_btn = types.KeyboardButton('Главное меню')
+greet_kb2 = types.ReplyKeyboardMarkup(
+    resize_keyboard=True, one_time_keyboard=True
+).add(general_menu_btn)
 user_keyboard.row(ladle_btn, spoons_btn, knives_btn)
 user_keyboard.row(forks_btn, dishes_btn, cups_btn)
 user_keyboard.row(cook_btn, parcel_from_Moscow_btn, replica_of_dishes_btn)

@@ -14,12 +14,12 @@ requests = {}
 
 @bot.message_handler(commands=['start'])
 def start_command(message):
-    bot.send_message(message.chat.id, start_message, reply_markup=user_keyboard)
+    bot.send_message(message.chat.id, start_message[0], reply_markup=greet_kb2)
 
 
 @bot.message_handler(func=lambda message: message.text == "Главное меню" or message.text == "главное меню")
 def general_menu(message):
-    start_command(message)
+    bot.send_message(message.chat.id, start_message[1], reply_markup=user_keyboard)
 
 
 @bot.callback_query_handler(func=lambda call: True)
