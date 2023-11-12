@@ -17,8 +17,15 @@ def start_command(message):
     bot.send_message(message.chat.id, start_message, reply_markup=user_keyboard)
 
 
+@bot.message_handler(func=lambda message: message.text == "Главное меню" or message.text == "главное меню")
+def main_menu(message):
+    start_command(message)
+
+
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
+    if call.data == 'Главное меню':
+        bot.send_message(call.message.chat.id, start_message, reply_markup=user_keyboard)
     if call.data == 'Повар':
         mes = bot.send_message(call.message.chat.id, cook_ms)
         bot.register_next_step_handler(mes, ankets_creator, cook=True)
@@ -67,7 +74,7 @@ def callback_inline(call):
 
 def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, forks=None, dishes=None, cups=None,
                    other_services=None, household_devices=None, parcel_from_Moscow=None, posting_on_a_channel=None,
-                   replica_of_dishes=None, technical_support=None, ladle_material=None, spoons_city=None,
+                   technical_support=None, ladle_material=None, spoons_city=None,
                    spoons_work=None, knives_city=None, cups_city=None, other_services_city=None,
                    household_devices_city=None, parcel_from_Moscow_city=None, posting_on_a_channel_city=None):
     if cook:
@@ -201,10 +208,11 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
 
     if technical_support:
         user_id = message.from_user.id
-        if user_id in requests:
-            bot.send_message(user_id, "Вы уже подали заявку. Пожалуйста, подождите ответа администраторов.")
-            return
-        bot.register_next_step_handler(message, process_request, user_id)
+        request_text = message.text
+        requests[user_id] = request_text
+        responders[user_id] = message.chat.id
+        bot.send_message(admin_chat_id, f"Получена новая заявка от пользователя {user_id}:\n{request_text}")
+        bot.send_message(user_id, "Ваша заявка принята. Пожалуйста, ожидайте ответа администраторов.")
 
 
 def anket(object, username, user_id, ladle_material=None, spoons_data=None, city=None, knives_set=None,
@@ -296,14 +304,6 @@ def anket(object, username, user_id, ladle_material=None, spoons_data=None, city
             Юзер ID: {user_id}
             '''
     return anketa
-
-
-def process_request(message, user_id):
-    request_text = message.text
-    requests[user_id] = request_text
-    responders[user_id] = message.chat.id
-    bot.send_message(admin_chat_id, f"Получена новая заявка от пользователя {user_id}:\n{request_text}")
-    bot.send_message(user_id, "Ваша заявка принята. Пожалуйста, ожидайте ответа администраторов.")
 
 
 @bot.message_handler(

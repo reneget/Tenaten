@@ -1,6 +1,7 @@
 from telebot import types
 
 user_keyboard = types.InlineKeyboardMarkup()
+general_menu_btn = types.InlineKeyboardButton(text='Главное меню', callback_data='Главное меню')
 cook_btn = types.InlineKeyboardButton(text='Повар', callback_data='Повар')
 ladle_btn = types.InlineKeyboardButton(text='Половник', callback_data='Половник')
 spoons_btn = types.InlineKeyboardButton(text='Ложки', callback_data='Ложки')
@@ -16,6 +17,7 @@ posting_on_a_channel_btn = types.InlineKeyboardButton(text='Размещение
 replica_of_dishes_btn = types.InlineKeyboardButton(text='Копия посуды', callback_data='Копия посуды')
 technical_support_btn = types.InlineKeyboardButton(text='Тех. поддержка', callback_data='Тех. поддержка')
 
+user_keyboard.row(general_menu_btn)
 user_keyboard.row(ladle_btn, spoons_btn, knives_btn)
 user_keyboard.row(forks_btn, dishes_btn, cups_btn)
 user_keyboard.row(cook_btn, parcel_from_Moscow_btn, replica_of_dishes_btn)
