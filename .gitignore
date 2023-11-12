@@ -1,2 +1,3 @@
 .idea/
 bot/example-settings.yml
+.env
