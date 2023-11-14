@@ -17,9 +17,8 @@ replica_of_dishes_btn = types.InlineKeyboardButton(text='Копия посуды
 technical_support_btn = types.InlineKeyboardButton(text='Тех. поддержка', callback_data='Тех. поддержка')
 
 general_menu_btn = types.KeyboardButton('Главное меню')
-greet_kb2 = types.ReplyKeyboardMarkup(
-    resize_keyboard=True, one_time_keyboard=True
-).add(general_menu_btn)
+greet_kb2 = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add(general_menu_btn)
+
 user_keyboard.row(ladle_btn, spoons_btn, knives_btn)
 user_keyboard.row(forks_btn, dishes_btn, cups_btn)
 user_keyboard.row(cook_btn, parcel_from_Moscow_btn, replica_of_dishes_btn)
@@ -32,10 +31,15 @@ y_btn = types.InlineKeyboardButton(text='✅ Принять', callback_data='П�
 n_btn = types.InlineKeyboardButton(text='❌ Отменить', callback_data='Отменить')
 admin_keyboard.row(y_btn, n_btn)
 
-y_keyboard = types.InlineKeyboardMarkup().add(types.InlineKeyboardButton(text='✅ВЫ ПРИНЯЛИ ЗАЯВКУ✅', callback_data='8==D'))
-n_keyboard = types.InlineKeyboardMarkup().add(types.InlineKeyboardButton(text='❌ВЫ ОТМЕНИЛИ ЗАЯВКУ❌', callback_data='8==D'))
+y_keyboard = types.InlineKeyboardMarkup().add(
+    types.InlineKeyboardButton(text='✅ВЫ ПРИНЯЛИ ЗАЯВКУ✅', callback_data='8==D'))
+n_keyboard = types.InlineKeyboardMarkup().add(
+    types.InlineKeyboardButton(text='❌ВЫ ОТМЕНИЛИ ЗАЯВКУ❌', callback_data='8==D'))
 
 ladle_keyboard = types.InlineKeyboardMarkup()
 m_button = types.InlineKeyboardButton(text='⛓ Металическая ручка', callback_data='Металическая ручка')
 t_button = types.InlineKeyboardButton(text='🌳 Деревянная ручка', callback_data='Деревяная ручка')
 ladle_keyboard.row(m_button, t_button)
+
+return_anket_btn = types.KeyboardButton(text='Отменить заявку')
+return_button_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add(return_anket_btn)
