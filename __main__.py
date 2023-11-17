@@ -1,6 +1,6 @@
 import telebot
-from bot.handler.texts import *
-from bot.keyboard.keyboard import *
+from texts import *
+from keyboard import *
 import os
 from dotenv import load_dotenv
 
