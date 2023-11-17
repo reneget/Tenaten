@@ -81,7 +81,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if cook:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Повар', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                    message.from_user.id,
@@ -91,7 +91,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if ladle:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Половник', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                    message.from_user.id,
@@ -107,7 +107,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if spoons_work and spoons_city:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Ложки', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                    message.from_user.id,
@@ -118,7 +118,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if forks:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Вилки', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                    message.from_user.id,
@@ -131,7 +131,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if knives_city:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Ножи', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                    message.from_user.id,
@@ -141,7 +141,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if dishes:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Тарелки', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                    message.from_user.id, dishes_type=message.text),
@@ -153,7 +153,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if cups_city:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Чашки', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                    message.from_user.id,
@@ -166,7 +166,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if other_services_city:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Другие услуги', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                    message.from_user.id,
@@ -179,7 +179,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if household_devices_city:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Бытовые устройства', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                    message.from_user.id,
@@ -193,7 +193,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if parcel_from_Moscow_city:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Посылка с Москвы', "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
                                    message.from_user.id,
@@ -207,7 +207,7 @@ def ankets_creator(message, cook=None, ladle=None, spoons=None, knives=None, for
         if posting_on_a_channel_city:
             user_id = message.from_user.id
             user_name = message.from_user.username
-            bot.send_message(message.chat.id, wait_ms)
+            bot.send_message(message.chat.id, wait_ms, reply_markup=greet_kb2)
             bot.send_message(admin_chat_id,
                              anket('Размещение поста на канале',
                                    "@[" + user_name + "](tg://user?id=" + str(user_id) + ")",
